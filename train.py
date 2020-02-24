@@ -78,8 +78,8 @@ for epoch in range(1, n_epoch+1):
 	for i in range(0, N, batch_size):
 		_ = slen(N, i, batch_size)
  	
-		x = chainer.Variable(xp.asarray(map( key2value, x_train[i:i+_], [docs]*_)).astype(xp.float32)).reshape(-1, 1, doc_len, word_len, word_dim)
-		w = chainer.Variable(xp.asarray(map( key2value, keyword_train[i:i+_], [words]*_)).astype(xp.float32)).reshape(-1, 1, doc_len, word_len, word_dim)
+		x = chainer.Variable(xp.asarray(list(map( key2value, x_train[i:i+_], [docs]*_))).astype(xp.float32)).reshape(-1, 1, doc_len, word_len, word_dim)
+		w = chainer.Variable(xp.asarray(list(map( key2value, keyword_train[i:i+_], [words]*_))).astype(xp.float32)).reshape(-1, 1, doc_len, word_len, word_dim)
 		t = chainer.Variable(xp.asarray(y_train[i:i+_]).astype(xp.int32))
 		optimizer.update(cf, x, w, t)
 

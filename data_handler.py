@@ -31,7 +31,7 @@ def load_data( articles, doc_len, word_len, token='_' ):
 		keyword = _[1]
 		labels.append( int(_[2]) )
 
-		docVec = map(wm.vector, doc)
+		docVec = list(map(wm.vector, doc))
 		docVec = array(docVec)
 		dzero = zeros((max_len-len(doc), word_len, char_dim))
 		docVec = concatenate((docVec, dzero), axis=0)
@@ -41,7 +41,7 @@ def load_data( articles, doc_len, word_len, token='_' ):
 			bodocs[_[0]] = numOfdocs
 			numOfdocs += 1
 
-		wordVec = map(wm.vector, keyword)
+		wordVec = list(map(wm.vector, keyword))
 		wzero = zeros((max_len-len(keyword), word_len, char_dim))
 		wordVec = concatenate((wordVec, wzero), axis=0)
 
@@ -70,11 +70,11 @@ def load_corpus( corpus, doc_len, word_len):
 	doc = util.normalizeString(doc)
 	### preprocessing
 	doc = nltk.word_tokenize(doc)
-	doc = filter(None, map(util.removeStop, doc))
+	doc = filter(None, list(map(util.removeStop, doc)))
 	###
 	words = list(set(doc))
 
-	docVec = map(wm.vector, doc)
+	docVec = list(map(wm.vector, doc))
 	docVec = array(docVec)
 	dzero = zeros((max_len-len(doc), word_len, char_dim))
 	docVec = concatenate((docVec, dzero), axis=0)
@@ -82,7 +82,7 @@ def load_corpus( corpus, doc_len, word_len):
 	wordVecs = deque()
 
 	for word in words:
-		wordVec = map(wm.vector, word)
+		wordVec = list(map(wm.vector, word))
 		wzero = zeros((max_len-len(word), word_len, char_dim))
 		wordVec = concatenate((wordVec, wzero), axis=0)
 		wordVecs.append(wordVec)
