@@ -34,7 +34,7 @@ print ('# of output\t:\t{}'.format(n_label))
 print ('filter size\t:\t{}x{}x{}'.format(filter_length, filter_width, filter_height))
 print ('batch size\t:\t{}'.format(batch_size))
 
-###load model
+###load oldmodel
 model = cntn.CNTN(output_channel, filter_length, filter_width, filter_height, n_units, n_label)
 cf = L.Classifier(model)
 optimizer = optimizers.Adam()
@@ -89,6 +89,6 @@ for epoch in range(1, n_epoch+1):
 		#total_loss.append(sum_train_loss)
 	print ('{}\t{}\t{}'.format(epoch, sum_train_loss/N, sum_train_accuracy/N))
 
-###save model
-print ('###\tsave model')
+###save oldmodel
+print ('###\tsave oldmodel')
 serializers.save_npz( output_model, model )

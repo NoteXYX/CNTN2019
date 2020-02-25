@@ -31,8 +31,8 @@ x = dataset['source']
 keyword = dataset['keyword']
 org_word = dataset['org']
 
-###load model
-print ('###\tload model\t:{}'.format( model_url ))
+###load oldmodel
+print ('###\tload oldmodel\t:{}'.format( model_url ))
 print ('###\tpredicted txt\t:{}'.format( testing_url ))
 
 model = cntn.CNTN(output_channel, filter_length, filter_width, filter_height, n_units, n_label)
