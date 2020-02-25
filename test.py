@@ -96,7 +96,7 @@ while curLine < len(x_test):
 	else:
 		curDocIndex = x_test[curLine]
 		curGroundKp = getkp(indexToDoc[curDocIndex-1], curGroundKw)
-		curPreKp = getkp(indexToDoc[curDocIndex-1], curPreKw)	# if top add here
+		curPreKp = getkp(indexToDoc[curDocIndex-1], curPreKw)[:5]	# if top add here
 		groundNum += len(curGroundKp)
 		preNum += len(curPreKp)
 		for phrase in curPreKp:
