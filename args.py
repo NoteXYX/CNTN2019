@@ -14,7 +14,7 @@ def process_command():
 	parser.add_argument('--gpu', '-g', default=-1, help='-1=cpu, 0, 1,...= gpt', type=int)
 	parser.add_argument('--model', '-model', default='./model', help='path of model')
 	parser.add_argument('--train', '-train', default='./data/semeval_wo_stem/train.txt', help='path of training data')
-	parser.add_argument('--predict', '-predict', default='./data/test.txt', help='path of predicted data')
+	parser.add_argument('--predict', '-predict', default='./data/semeval_wo_stem/test.txt', help='path of predicted data')
 	
 
 	return parser.parse_args()

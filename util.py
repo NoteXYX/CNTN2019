@@ -28,7 +28,28 @@ def removeStop(word):
 		return word
 
 
-def key2value( target, dic ):
+def key2value(target, dic):
 	return dic[target]
+
+def getkp(curDoc, keywords):
+	kp = []
+	for i in range(len(keywords)):
+		curkw = keywords[i]
+		curkp = []
+		j = 0
+		while j < len(curDoc):
+			if curDoc[j] == curkw:
+				curkp.append(curkw)
+				j += 1
+				continue
+			if curDoc[j] in keywords:
+				curkp.append(curDoc[j])
+			elif len(curkp) != 0:
+				curkp = list(set(curkp))
+				kp.append(' '.join(curkp))
+				curkp = []
+			j += 1
+	return kp
+
 
 

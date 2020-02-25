@@ -12,6 +12,7 @@ def load_data( articles, doc_len, word_len, token='_' ):
 
 	bodocs = dict()
 	bowords = dict()
+	indexToDoc = dict()
 	
 	numOfdocs = 0
 	numOfwords = 0
@@ -23,13 +24,14 @@ def load_data( articles, doc_len, word_len, token='_' ):
 	kw = deque()
 	feature = deque()
 	labels = deque()
+	testWords = deque()
 
 	for article in articles:
 		_ = article.split(token)
 		doc = nltk.word_tokenize(_[0])
 
 		keyword = _[1]
-		labels.append( int(_[2]) )
+		labels.append(int(_[2]))
 
 		docVec = list(map(wm.vector, doc))
 		docVec = array(docVec)
@@ -39,6 +41,7 @@ def load_data( articles, doc_len, word_len, token='_' ):
 		if _[0] not in bodocs.keys():
 			docs[numOfdocs] = docVec
 			bodocs[_[0]] = numOfdocs
+			indexToDoc[numOfdocs] = _[0]
 			numOfdocs += 1
 
 		wordVec = list(map(wm.vector, keyword))
@@ -52,6 +55,8 @@ def load_data( articles, doc_len, word_len, token='_' ):
 
 		source.append(bodocs[_[0]])
 		kw.append(bowords[_[1]])
+		testWords.append(_[1])
+
 
 	dataset = {}
 	dataset['source'] = array(source)
@@ -59,6 +64,8 @@ def load_data( articles, doc_len, word_len, token='_' ):
 	dataset['target'] = array(labels)
 	dataset['docs'] = docs
 	dataset['words'] = words
+	dataset['testWords'] = array(testWords)
+	dataset['indexToDoc'] = indexToDoc
 
 	return dataset
 
