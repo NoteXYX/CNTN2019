@@ -3,4 +3,5 @@ data/*
 # mypy
 .DS_Store
 semeval_model
+oldmodel
 
