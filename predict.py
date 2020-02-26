@@ -89,7 +89,7 @@ f1 = 2 * precision * recall / (precision + recall)
 print('dataset: {}'.format(testing_url))
 print('model:{}'.format(model_url))
 print('precision:{:.2f}, recall:{:.2f}, F1-score:{:.2f}'.format(precision, recall, f1))
-with open('result/predict.txt', 'w', encoding='utf-8') as fres:
+with open('result/predict.txt', 'a', encoding='utf-8') as fres:
 	fres.write('------------------------------------\n')
 	fres.write('dataset: {}\n'.format(testing_url))
 	fres.write('model:{}\n'.format(model_url))
