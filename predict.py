@@ -64,7 +64,7 @@ preNum = 0.0
 groundNum = 0.0
 goodNum = 0.0
 for test in tests:
-	jsonData = json.load(test)
+	jsonData = json.loads(test)
 	line = jsonData["abstract"].strip().lower()
 	curPreKw = []
 	x, keyword, org_word = loadLine(line, doc_len, word_len)
