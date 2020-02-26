@@ -69,7 +69,7 @@ def load_data( articles, doc_len, word_len, token='_' ):
 
 	return dataset
 
-def load_corpus( corpus, doc_len, word_len):
+def load_corpus(corpus, doc_len, word_len):
 	char_dim = len(wm.getBOC())+1
 	max_len = doc_len
 
@@ -77,7 +77,7 @@ def load_corpus( corpus, doc_len, word_len):
 	doc = util.normalizeString(doc)
 	### preprocessing
 	doc = nltk.word_tokenize(doc)
-	doc = filter(None, list(map(util.removeStop, doc)))
+	doc = list(filter(None, list(map(util.removeStop, doc))))
 	###
 	words = list(set(doc))
 
