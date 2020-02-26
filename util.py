@@ -51,5 +51,5 @@ def getkp(curDoc, keywords):
 			j += 1
 	return kp
 
-
-
+# doc = ['hello', 'i', 'am', 'XYX']
+# print(list(map(removeStop, doc)))

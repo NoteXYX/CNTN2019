@@ -1,5 +1,7 @@
 import json
 import nltk
+import util
+
 
 def main():
     fin = open('data/semeval_wo_stem/semeval_valid.json', 'r', encoding='utf-8')
@@ -8,6 +10,7 @@ def main():
         jsonData = json.loads(line)
         cur_ab = jsonData['abstract'].strip().lower()
         wordList = nltk.word_tokenize(cur_ab)
+        wordList = list(filter(None, list(map(util.removeStop, wordList))))
         cur_doc = ' '.join(wordList)
         cur_kps = jsonData['keywords'].split(';')
         cur_kws = []
