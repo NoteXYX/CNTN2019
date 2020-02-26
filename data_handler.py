@@ -80,6 +80,7 @@ def load_corpus(corpus, doc_len, word_len):
 	doc = list(filter(None, list(map(util.removeStop, doc))))
 	###
 	words = list(set(doc))
+	words.sort(key=doc.index)
 
 	docVec = list(map(wm.vector, doc))
 	docVec = array(docVec)

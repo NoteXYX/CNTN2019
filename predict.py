@@ -60,6 +60,7 @@ serializers.load_npz(model_url, model)
 ###load dataset
 testFile = open(testing_url, 'r', encoding='utf-8')
 tests = testFile.readlines()
+testFile.close()
 preNum = 0.0
 groundNum = 0.0
 goodNum = 0.0
@@ -93,6 +94,7 @@ with open('result/predict.txt', 'w', encoding='utf-8') as fres:
 	fres.write('dataset: {}\n'.format(testing_url))
 	fres.write('model:{}\n'.format(model_url))
 	fres.write('precision:{:.2f}, recall:{:.2f}, F1-score:{:.2f}\n'.format(precision, recall, f1))
+
 
 
 
