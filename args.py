@@ -12,8 +12,8 @@ def process_command():
 	parser.add_argument('--batch', '-b', default=64, help='batch size', type=int )
 	parser.add_argument('--epoch', '-e', default=25, help='epoch', type=int )
 	parser.add_argument('--gpu', '-g', default=-1, help='-1=cpu, 0, 1,...= gpt', type=int)
-	parser.add_argument('--model', '-model', default='./semeval_model', help='path of model')
-	parser.add_argument('--train', '-train', default='./data/semeval_wo_stem/train.txt', help='path of training data')
+	parser.add_argument('--model', '-model', default='./mysemeval_model', help='path of model')
+	parser.add_argument('--train', '-train', default='./data/semeval_wo_stem/mytrain.txt', help='path of training data')
 	parser.add_argument('--predict', '-predict', default='./data/semeval_wo_stem/semeval_test.json', help='path of predicted data')
 	
 
