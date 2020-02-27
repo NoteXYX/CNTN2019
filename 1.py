@@ -4,8 +4,8 @@ import util
 
 
 def main():
-    fin = open('data/semeval_wo_stem/semeval_valid.json', 'r', encoding='utf-8')
-    fout = open('data/semeval_wo_stem/mytrain.txt', 'w', encoding='utf-8')
+    fin = open('data/inspec_wo_stem/inspec_valid.json', 'r', encoding='utf-8')
+    fout = open('data/inspec_wo_stem/mytrain.txt', 'w', encoding='utf-8')
     for line in fin.readlines():
         jsonData = json.loads(line)
         cur_ab = jsonData['abstract'].strip().lower()
