@@ -31,7 +31,7 @@ def load_data( articles, doc_len, word_len, token='_' ):
 		doc = nltk.word_tokenize(_[0])
 
 		keyword = _[1]
-		labels.append(int(_[2]))
+		labels.append(int(_[2].strip()))
 
 		docVec = list(map(wm.vector, doc))
 		docVec = array(docVec)
