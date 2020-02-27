@@ -1,0 +1,4 @@
+------------------------------------
+dataset: ./data/semeval_wo_stem/test.txt
+model:./semeval_model
+precision:0.98, recall:0.41, F1-score:0.58

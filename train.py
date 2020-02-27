@@ -41,7 +41,7 @@ optimizer = optimizers.Adam()
 optimizer.setup(cf)
 
 ###load dataset
-training = open(train_url).readlines()
+training = open(train_url, 'r', encoding='utf-8').readlines()
 dataset = dh.load_data( training, doc_len, word_len )
 
 x_train = dataset['source']
