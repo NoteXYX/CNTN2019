@@ -42,7 +42,7 @@ optimizer.setup(cf)
 
 ###load dataset
 training = open(train_url, 'r', encoding='utf-8').readlines()
-dataset = dh.load_data( training, doc_len, word_len )
+dataset = dh.load_data( training, doc_len, word_len, token='##')
 
 x_train = dataset['source']
 keyword_train = dataset['keyword']

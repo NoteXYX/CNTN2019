@@ -25,14 +25,15 @@ def load_data( articles, doc_len, word_len, token='_' ):
 	feature = deque()
 	labels = deque()
 	testWords = deque()
-
+	i = 0
 	for article in articles:
 		_ = article.split(token)
 		doc = nltk.word_tokenize(_[0])
 
 		keyword = _[1]
 		labels.append(int(_[2].strip()))
-
+		i += 1
+		print('{} is ok...'.format(i))
 		docVec = list(map(wm.vector, doc))
 		docVec = array(docVec)
 		dzero = zeros((max_len-len(doc), word_len, char_dim))

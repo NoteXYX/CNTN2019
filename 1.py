@@ -3,7 +3,7 @@ import nltk
 import util
 
 
-def main():
+def main(token='_'):
     fin = open('data/inspec_wo_stem/inspec_valid.json', 'r', encoding='utf-8')
     fout = open('data/inspec_wo_stem/mytrain.txt', 'w', encoding='utf-8')
     for line in fin.readlines():
@@ -18,7 +18,7 @@ def main():
             kwsList = kp.split(' ')
             cur_kws.extend(kwsList)
         for i in range(len(cur_kws)):
-            fout.write(cur_doc + '_' + cur_kws[i] + '_' + '1\n')
+            fout.write(cur_doc + token + cur_kws[i] + token + '1\n')
         wordNum = 0
         notKeyNum = 0
         while wordNum < len(wordList) and notKeyNum < len(cur_kws):
@@ -29,4 +29,4 @@ def main():
     fin.close()
     fout.close()
 if __name__ == '__main__':
-    main()
+    main(token='##')
