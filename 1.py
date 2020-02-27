@@ -23,7 +23,7 @@ def main(token='_'):
         notKeyNum = 0
         while wordNum < len(wordList) and notKeyNum < len(cur_kws):
             if wordList[wordNum] not in cur_kws:
-                fout.write(cur_doc + '_' + wordList[wordNum] + '_' + '0\n')
+                fout.write(cur_doc + token + wordList[wordNum] + token + '0\n')
                 notKeyNum += 1
             wordNum += 1
     fin.close()
