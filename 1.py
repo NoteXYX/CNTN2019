@@ -4,8 +4,8 @@ import util
 
 
 def main(token='_'):
-    fin = open('data/inspec_wo_stem/inspec_valid.json', 'r', encoding='utf-8')
-    fout = open('data/inspec_wo_stem/mytrain.txt', 'w', encoding='utf-8')
+    fin = open('data/krapivin/krapivin_valid.json', 'r', encoding='utf-8')
+    fout = open('data/krapivin/mytrain.txt', 'w', encoding='utf-8')
     for line in fin.readlines():
         jsonData = json.loads(line)
         cur_ab = jsonData['abstract'].strip().lower()

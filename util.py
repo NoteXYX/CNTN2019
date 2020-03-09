@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 
 stop = set(stopwords.words('english'))
 stop.add('_')
+stop.update(('$', '(', ')', '[', ']', '--', '<', '>'))
 
 def normalizeString(string):
 	string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)     

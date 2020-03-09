@@ -29,11 +29,12 @@ def load_data( articles, doc_len, word_len, token='_' ):
 	for article in articles:
 		_ = article.split(token)
 		doc = nltk.word_tokenize(_[0])
-
+		if doc == '':
+			continue
 		keyword = _[1]
+		if keyword == '':
+			continue
 		labels.append(int(_[2].strip()))
-		i += 1
-		print('{} is ok...'.format(i))
 		docVec = list(map(wm.vector, doc))
 		docVec = array(docVec)
 		dzero = zeros((max_len-len(doc), word_len, char_dim))
@@ -48,7 +49,8 @@ def load_data( articles, doc_len, word_len, token='_' ):
 		wordVec = list(map(wm.vector, keyword))
 		wzero = zeros((max_len-len(keyword), word_len, char_dim))
 		wordVec = concatenate((wordVec, wzero), axis=0)
-
+		i += 1
+		print('{} is ok...'.format(i))
 		if _[1] not in bowords:
 			words[numOfwords] = wordVec
 			bowords[_[1]] = numOfwords
