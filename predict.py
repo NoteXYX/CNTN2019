@@ -24,7 +24,7 @@ output_channel = arg.channel
 batch_size = arg.batch
 n_epoch = arg.epoch
 model_url = arg.model
-
+topk = 500
 
 def loadLine(line, doc_len, word_len):
 	dataset = dh.load_corpus(line, doc_len, word_len)
@@ -77,12 +77,13 @@ for test in tests:
 	curPreKp = getkp(line, curPreKw)
 	curGroundKp = jsonData["keywords"].split(';')
 	groundNum += len(curGroundKp)
-	preNum += len(curPreKp)
+	num = min(len(curPreKp), topk)
+	preNum += num
 	for phrase in curPreKp:
 		if phrase in curGroundKp:
 			goodNum += 1
 
-print('---\toutput result\t\t---')
+print('---\toutput result\t\tTop%d---' % topk)
 precision = goodNum / preNum
 recall = goodNum / groundNum
 f1 = 2 * precision * recall / (precision + recall)
@@ -90,7 +91,7 @@ print('dataset: {}'.format(testing_url))
 print('model:{}'.format(model_url))
 print('precision:{:.4f}, recall:{:.4f}, F1-score:{:.4f}'.format(precision, recall, f1))
 with open('result/predict.txt', 'a', encoding='utf-8') as fres:
-	fres.write('------------------------------------\n')
+	fres.write('--------------Top%d----------------------\n' % topk)
 	fres.write('dataset: {}\n'.format(testing_url))
 	fres.write('model:{}\n'.format(model_url))
 	fres.write('precision:{:.4f}, recall:{:.4f}, F1-score:{:.4f}\n'.format(precision, recall, f1))

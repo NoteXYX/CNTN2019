@@ -35,10 +35,14 @@ def load_data( articles, doc_len, word_len, token='_' ):
 		if keyword == '':
 			continue
 		labels.append(int(_[2].strip()))
-		docVec = list(map(wm.vector, doc))
-		docVec = array(docVec)
-		dzero = zeros((max_len-len(doc), word_len, char_dim))
-		docVec = concatenate((docVec, dzero), axis=0)
+		if max_len > len(doc):
+			docVec = list(map(wm.vector, doc))
+			docVec = array(docVec)
+			dzero = zeros((max_len-len(doc), word_len, char_dim))
+			docVec = concatenate((docVec, dzero), axis=0)
+		else:
+			docVec = list(map(wm.vector, doc[:max_len]))
+			docVec = array(docVec)
 
 		if _[0] not in bodocs.keys():
 			docs[numOfdocs] = docVec
@@ -55,12 +59,15 @@ def load_data( articles, doc_len, word_len, token='_' ):
 			words[numOfwords] = wordVec
 			bowords[_[1]] = numOfwords
 			numOfwords += 1
-
 		source.append(bodocs[_[0]])
 		kw.append(bowords[_[1]])
 		testWords.append(_[1])
+		if i == 1884855:
+			break
 
 
+	del bowords
+	del bodocs
 	dataset = {}
 	dataset['source'] = array(source)
 	dataset['keyword'] = array(kw)
