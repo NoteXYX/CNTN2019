@@ -59,6 +59,15 @@ def repeatNum(s1, s2):
             if ' '.join(maxstr[i:i + sublen]) in ' '.join(s2):
                 return len(maxstr[i:i + sublen])
 
+def getSingleAndMoreKP(kps):
+    singleKP = []
+    moreKP = []
+    for kp in kps:
+        if len(kp.rstrip().split(" ")) > 1:
+            moreKP.append(kp)
+        elif len(kp.rstrip().split(" ")) == 1:
+            singleKP.append(kp)
+    return singleKP, moreKP
 # mystr = ['i', 'am', 'xyx', 'are', 'you', 'ok']
 # key = ['xyx', 'am', 'i', 'you', 'ok']
 # print(getkp(mystr, key))

@@ -9,7 +9,7 @@ def process_command():
 	parser.add_argument('--label', '-l', default=2, help='output label', type=int )
 	parser.add_argument('--flen', '-fl', default=3, help='filter length', type=int )
 	parser.add_argument('--channel', '-c', default=50, help='channel size', type=int )
-	parser.add_argument('--batch', '-b', default=200, help='batch size', type=int )	# 64
+	parser.add_argument('--batch', '-b', default=64, help='batch size', type=int )	# 64
 	parser.add_argument('--epoch', '-e', default=25, help='epoch', type=int )	# 25
 	parser.add_argument('--gpu', '-g', default=-1, help='-1=cpu, 0, 1,...= gpt', type=int)
 	parser.add_argument('--model', '-model', default='./myinspec_model', help='path of model')

@@ -85,6 +85,7 @@ for epoch in range(1, n_epoch+1):
 
 		sum_train_loss += float(cf.loss.data) * len(t.data)
 		sum_train_accuracy += float(cf.accuracy.data) * len(t.data)
+		print((i / N * 1.00) % 100.0)
 
 		#total_loss.append(sum_train_loss)
 	print ('{}\t{}\t{}'.format(epoch, sum_train_loss/N, sum_train_accuracy/N))

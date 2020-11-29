@@ -7,7 +7,7 @@ import numpy as np
 from chainer import Chain, optimizers, serializers, Variable
 from util import key2value
 import json
-from getkp import getkp
+from getkp import getkp, getSingleAndMoreKP
 
 ###load arguments
 arg = args.process_command()
@@ -24,7 +24,7 @@ output_channel = arg.channel
 batch_size = arg.batch
 n_epoch = arg.epoch
 model_url = arg.model
-topk = 500
+topk = 10
 
 def loadLine(line, doc_len, word_len):
 	dataset = dh.load_corpus(line, doc_len, word_len)
@@ -64,6 +64,12 @@ testFile.close()
 preNum = 0.0
 groundNum = 0.0
 goodNum = 0.0
+singlePreNum = 0.0
+morePreNum = 0.0
+singleGroundNum = 0.0
+moreGroundNum = 0.0
+singleGoodNum = 0.0
+moreGoodNum = 0.0
 for test in tests:
 	jsonData = json.loads(test)
 	line = jsonData["abstract"].strip().lower()
@@ -76,25 +82,49 @@ for test in tests:
 			curPreKw.append(word)
 	curPreKp = getkp(line, curPreKw)
 	curGroundKp = jsonData["keywords"].split(';')
+	curPreSingleKP, curPreMoreKP = getSingleAndMoreKP(curPreKp)
+	curGroundSingleKP, curGroundMoreKP = getSingleAndMoreKP(curGroundKp)
 	groundNum += len(curGroundKp)
+	singleGroundNum += len(curGroundSingleKP)
+	moreGroundNum += len(curGroundMoreKP)
 	num = min(len(curPreKp), topk)
+	singleNum = min(len(curPreSingleKP), topk)
+	moreNum = min(len(curPreMoreKP), topk)
 	preNum += num
+	singlePreNum += singleNum
+	morePreNum += moreNum
 	for phrase in curPreKp:
 		if phrase in curGroundKp:
 			goodNum += 1
+	for phrase in curPreSingleKP:
+		if phrase in curGroundSingleKP:
+			singleGoodNum += 1
+	for phrase in curPreMoreKP:
+		if phrase in curGroundMoreKP:
+			moreGoodNum += 1
 
 print('---\toutput result\t\tTop%d---' % topk)
 precision = goodNum / preNum
 recall = goodNum / groundNum
 f1 = 2 * precision * recall / (precision + recall)
+singleF1 = 0.0
+if singlePreNum != 0 and singleGroundNum != 0:
+	singlePrecision = singleGoodNum / singlePreNum
+	singleRecall = singleGoodNum / singleGroundNum
+	singleF1 = 2 * singlePrecision * singleRecall / (singlePrecision + singleRecall)
+moreF1 = 0.0
+if morePreNum != 0 and moreGroundNum != 0:
+	morePrecision = moreGoodNum / morePreNum
+	moreRecall = moreGoodNum / moreGroundNum
+	moreF1 = 2 * morePrecision * moreRecall / (morePrecision + moreRecall)
 print('dataset: {}'.format(testing_url))
 print('model:{}'.format(model_url))
-print('precision:{:.4f}, recall:{:.4f}, F1-score:{:.4f}'.format(precision, recall, f1))
-with open('result/predict.txt', 'a', encoding='utf-8') as fres:
+print('precision:{:.4f}, recall:{:.4f}, F1-score:{:.4f}, singleF1:{:.4f}, moreF1:{:.4f}\n'.format(precision, recall, f1, singleF1, moreF1))
+with open('result/predictNEW.txt', 'a', encoding='utf-8') as fres:
 	fres.write('--------------Top%d----------------------\n' % topk)
 	fres.write('dataset: {}\n'.format(testing_url))
 	fres.write('model:{}\n'.format(model_url))
-	fres.write('precision:{:.4f}, recall:{:.4f}, F1-score:{:.4f}\n'.format(precision, recall, f1))
+	fres.write('precision:{:.4f}, recall:{:.4f}, F1-score:{:.4f}, singleF1:{:.4f}, moreF1:{:.4f}\n'.format(precision, recall, f1, singleF1, moreF1))
 
 
 
